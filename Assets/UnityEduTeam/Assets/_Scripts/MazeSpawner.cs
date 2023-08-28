@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,20 +5,24 @@ public class MazeSpawner : MonoBehaviour {
 
     public List<GameObject> Modules = new List<GameObject>();
 
-    private List<GameObject> SpawnPoints = new List<GameObject>();
+    // private List<GameObject> SpawnPoints = new List<GameObject>();
 
-    private List<GameObject> MazeModules = new List<GameObject>();
+    // private List<GameObject> MazeModules = new List<GameObject>();
 	// Use this for initialization
 	void Start () {
-        SpawnPoints.AddRange(GameObject.FindGameObjectsWithTag("ModuleLoc"));
-
-        foreach (GameObject SpawnPoint in SpawnPoints)
+        // SpawnPoints.AddRange(GameObject.FindGameObjectsWithTag("ModuleLoc")); // remplacer par module_loc_array
+		GameObject [] module_loc_array = GameObject.FindGameObjectsWithTag("ModuleLoc");
+		// REMI: création du maze, passage en for avec variable locale
+        for (int index = 0; index < module_loc_array.Length; index++) // à la place du foreach
         {
-            MazeModules.Add(Instantiate(Modules[Random.Range(0, Modules.Count)], SpawnPoint.transform.position, Quaternion.identity));
+            // MazeModules.Add(Instantiate(Modules[Random.Range(0, Modules.Count)], SpawnPoint.transform.position, Quaternion.identity));
+			Instantiate(Modules[Random.Range(0, Modules.Count)], module_loc_array[index].transform.position, Quaternion.identity);
         }
 	}
 	
+	/*
 	// Update is called once per frame
+	// REMI1: pas utilisé car pas de système de modification du maze donc control inutile
 	void Update ()
 	{
 		//Vérification de la bonne position des éléments du Maze
@@ -74,5 +77,5 @@ public class MazeSpawner : MonoBehaviour {
 				Debug.Log("Module bien orienté !!");
 			}
 		}
-	}
+	}*/
 }
