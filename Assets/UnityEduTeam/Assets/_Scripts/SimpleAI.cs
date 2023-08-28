@@ -108,10 +108,6 @@ public class SimpleAI : MonoBehaviour {
         {
             return;
         }
-        else
-        {
-            Debug.Log("Found Player");
-        }
 
         foreach (GameObject player in players)
         {
@@ -162,29 +158,22 @@ public class SimpleAI : MonoBehaviour {
 
     private bool HasFindPlayer()
     {
-        bool result = false;
-        
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         if (players.Length == 0)
         {
-            return result;
+            return false;
         }
-        else
-        {
-            Debug.Log("Found Player");
-        }
-
         
         foreach (GameObject player in players)
         {
             if (Vector3.Distance(player.transform.position, transform.position) <= GetComponent<NavMeshAgent>().radius*2)
             {
-                result = true;
+                return true;
             }
         }
 
-        return result;
+        return false;
     }
     
     // Update is called once per frame
