@@ -5,6 +5,8 @@ public class MoveToClickPoint : MonoBehaviour
 {
     [SerializeField]
     NavMeshAgent _playerNavMeshAgent; // à la place GetComponent<NavMeshAgent>()
+    [SerializeField]
+    Animator _playerAnimator; // à la place GetComponentInChildren<Animator>()
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -40,12 +42,12 @@ public class MoveToClickPoint : MonoBehaviour
         //après avoir vérifier que le component est bien là pour éviter la nullreference
         if (_playerNavMeshAgent != null && _playerNavMeshAgent.velocity.magnitude > .1f)
         {
-            GetComponentInChildren<Animator>().SetBool("running", true);
+            _playerAnimator.SetBool("running", true);
             // Debug.Log("start walking");
         }
         else
         {
-            GetComponentInChildren<Animator>().SetBool("running", false);
+            _playerAnimator.SetBool("running", false);
             // Debug.Log("start running");
         }
 
