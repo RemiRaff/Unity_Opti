@@ -26,7 +26,7 @@ public class MoveToClickPoint : MonoBehaviour
         }
 
         //on vérifie si le player est arrivé à destination
-        if (Vector3.Distance(transform.position , _playerNavMeshAgent.destination) < 0.1f)
+        if (Vector3.SqrMagnitude(transform.position - _playerNavMeshAgent.destination) < 0.01f) // Distance à 0.1f avant
         {
             // toujours la vérif de la présence du component pour éviter la nullreference
             if (_playerNavMeshAgent != null)
