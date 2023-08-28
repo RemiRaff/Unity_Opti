@@ -19,10 +19,8 @@ public class MoveToClickPoint : MonoBehaviour
                 {
                     GetComponent<NavMeshAgent>().destination = hit.point;
                     GetComponent<NavMeshAgent>().isStopped = false;
-                    Debug.Log("Player destination have been changed !");
-
+                    // Debug.Log("Player destination have been changed !");
                 }
-
             }
         }
 
@@ -33,7 +31,7 @@ public class MoveToClickPoint : MonoBehaviour
             if (GetComponent<NavMeshAgent>() != null)
             {
                 GetComponent<NavMeshAgent>().isStopped = true;
-                Debug.Log("Player reach is destination !");
+                // Debug.Log("Player reach is destination !");
             }
         }
 
@@ -42,13 +40,12 @@ public class MoveToClickPoint : MonoBehaviour
         if (GetComponent<NavMeshAgent>() != null && GetComponent<NavMeshAgent>().velocity.magnitude > .1f)
         {
             GetComponentInChildren<Animator>().SetBool("running", true);
-            Debug.Log("start walking");
+            // Debug.Log("start walking");
         }
         else
         {
             GetComponentInChildren<Animator>().SetBool("running", false);
-            Debug.Log("start running");
-
+            // Debug.Log("start running");
         }
 
     }
