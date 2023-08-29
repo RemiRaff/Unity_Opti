@@ -4,9 +4,9 @@ using UnityEngine.AI;
 public class MoveToClickPoint : MonoBehaviour
 {
     [SerializeField]
-    NavMeshAgent _playerNavMeshAgent; // à la place GetComponent<NavMeshAgent>()
+    private NavMeshAgent _playerNavMeshAgent; // à la place GetComponent<NavMeshAgent>()
     [SerializeField]
-    Animator _playerAnimator; // à la place GetComponentInChildren<Animator>()
+    private Animator _playerAnimator; // à la place GetComponentInChildren<Animator>()
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
