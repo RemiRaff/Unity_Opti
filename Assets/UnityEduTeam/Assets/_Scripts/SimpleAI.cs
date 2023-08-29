@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -27,6 +25,7 @@ public class SimpleAI : MonoBehaviour {
     private int maxNumberOfNewDestinationBeforeDeath;
     private enum State {Wandering, Chasing};
     private State currentState;
+    private GameObject _player = null;
 
     // Use this for initialization
     void Start () {
@@ -158,20 +157,16 @@ public class SimpleAI : MonoBehaviour {
 
     private bool HasFindPlayer()
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        if (players.Length == 0)
-        {
-            return false;
+        if (!_player) { // player pas encore initialisé
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            if (players.Length == 0) // player pas présent
+                return false;
+            _player = players[0]; // 1 player pas de multi donc assignation
         }
         
-        foreach (GameObject player in players)
-        {
-            if (Vector3.Distance(player.transform.position, transform.position) <= GetComponent<NavMeshAgent>().radius*2)
-            {
-                return true;
-            }
-        }
+        // foreach plus nécessaire
+        if (Vector3.Distance(_player.transform.position, transform.position) <= GetComponent<NavMeshAgent>().radius*2)
+            return true;
 
         return false;
     }
@@ -188,6 +183,7 @@ public class SimpleAI : MonoBehaviour {
             currentState = State.Wandering;
         }
 
+        // si on tape le player, chargement de la scène
         if (HasFindPlayer())
         {
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
