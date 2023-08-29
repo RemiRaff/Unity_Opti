@@ -100,21 +100,14 @@ public class SimpleAI : MonoBehaviour {
         playerTarget = null;
         playerSeen = false;
         
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        
-        if (players.Length == 0)
+        if (InitPlayer())
         {
-            return;
-        }
-
-        foreach (GameObject player in players)
-        {
-            Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
+            // foreach plus nécessaire
+            Vector3 dirToTarget = (_player.transform.position - transform.position).normalized;
             RaycastHit hit;
             if (Physics.Raycast(transform.position, dirToTarget, out hit))
             {
-                float dstToTarget = Vector3.Distance(transform.position, player.transform.position);
+                float dstToTarget = Vector3.Distance(transform.position, _player.transform.position);
                 if (dstToTarget <= viewRadius)
                 {
                     if (Vector3.Angle(transform.forward, dirToTarget) <= viewAngle / 2)
@@ -157,18 +150,24 @@ public class SimpleAI : MonoBehaviour {
 
     private bool HasFindPlayer()
     {
+        if (InitPlayer())
+        {
+            // foreach plus nécessaire
+            if (Vector3.Distance(_player.transform.position, transform.position) <= GetComponent<NavMeshAgent>().radius*2)
+                return true;
+        }
+        return false;
+    }
+
+    private bool InitPlayer() {
         if (!_player) { // player pas encore initialisé
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             if (players.Length == 0) // player pas présent
                 return false;
             _player = players[0]; // 1 player pas de multi donc assignation
         }
-        
-        // foreach plus nécessaire
-        if (Vector3.Distance(_player.transform.position, transform.position) <= GetComponent<NavMeshAgent>().radius*2)
-            return true;
 
-        return false;
+        return true;
     }
     
     // Update is called once per frame
