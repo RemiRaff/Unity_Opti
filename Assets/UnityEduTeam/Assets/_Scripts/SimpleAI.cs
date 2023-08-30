@@ -26,11 +26,17 @@ public class SimpleAI : MonoBehaviour {
     private enum State {Wandering, Chasing};
     private State currentState;
     private GameObject _player = null;
+    private Animator _animator = null;
+    private NavMeshAgent _navMeshAgent = null;
 
     // Use this for initialization
     void Start () {
         currentDestination = RandomNavSphere(transform.position, patrolRadius, -1);
         maxNumberOfNewDestinationBeforeDeath = Random.Range(5, 50);
+
+        // init
+        _animator = GetComponentInChildren<Animator>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     private void CheckState()
@@ -52,15 +58,15 @@ public class SimpleAI : MonoBehaviour {
 
     void WanderBehavior()
     {
-        GetComponentInChildren<Animator>().SetTrigger("walk");
-        GetComponent<NavMeshAgent>().speed = walkSpeed;
+        _animator.SetTrigger("walk");
+        _navMeshAgent.speed = walkSpeed;
 
-        float dist = GetComponent<NavMeshAgent>().remainingDistance;
+        float dist = _navMeshAgent.remainingDistance;
 
-        if (dist != Mathf.Infinity && GetComponent<NavMeshAgent>().pathStatus == NavMeshPathStatus.PathComplete)
+        if (dist != Mathf.Infinity && _navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete)
         {
             currentDestination = RandomNavSphere(transform.position, patrolRadius, -1);
-            GetComponent<NavMeshAgent>().SetDestination(currentDestination);
+            _navMeshAgent.SetDestination(currentDestination);
             maxNumberOfNewDestinationBeforeDeath--;
             if (maxNumberOfNewDestinationBeforeDeath <= 0)
             {
@@ -74,10 +80,10 @@ public class SimpleAI : MonoBehaviour {
     {
         if (playerTarget != null)
         {
-            GetComponentInChildren<Animator>().SetTrigger("run");
-            GetComponent<NavMeshAgent>().speed = runSpeed;
+            _animator.SetTrigger("run");
+            _navMeshAgent.speed = runSpeed;
             currentDestination = playerTarget.transform.position;
-            GetComponent<NavMeshAgent>().SetDestination(currentDestination);
+            _navMeshAgent.SetDestination(currentDestination);
         }
         else
         {
@@ -153,7 +159,7 @@ public class SimpleAI : MonoBehaviour {
         if (InitPlayer())
         {
             // foreach plus nécessaire
-            if (Vector3.Distance(_player.transform.position, transform.position) <= GetComponent<NavMeshAgent>().radius*2)
+            if (Vector3.Distance(_player.transform.position, transform.position) <= _navMeshAgent.radius*2)
                 return true;
         }
         return false;
