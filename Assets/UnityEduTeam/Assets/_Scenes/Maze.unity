@@ -881,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198329759521040852, guid: f45ae71bed3e6794389078f9a089951f, type: 3}
       propertyPath: randomSeed
-      value: 1004835341
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198329759521040852, guid: f45ae71bed3e6794389078f9a089951f, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
@@ -1594,7 +1594,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
