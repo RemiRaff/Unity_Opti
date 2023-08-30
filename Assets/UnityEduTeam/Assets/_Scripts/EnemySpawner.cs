@@ -5,14 +5,21 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public List<GameObject> EnemyPrefabs;
+
+    private GameObject[] enemySpawnPoints;
+    private int _spawnCount;
     
     void Start()
     {
-        for (int i = 0; i < GameObject.FindGameObjectsWithTag("EnemySpawnPoint").Length; i++)
+        // init
+        enemySpawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawnPoint");
+        _spawnCount = enemySpawnPoints.Length;
+
+        for (int i = 0; i < _spawnCount; i++)
         {
             Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)],
-                GameObject.FindGameObjectsWithTag("EnemySpawnPoint")[i].transform.position,
-                GameObject.FindGameObjectsWithTag("EnemySpawnPoint")[i].transform.rotation);
+                enemySpawnPoints[i].transform.position,
+                enemySpawnPoints[i].transform.rotation);
         }
     }
 
@@ -21,13 +28,13 @@ public class EnemySpawner : MonoBehaviour
     {
         // vérification si un enemy est mort et le cas échéant en faire spawn un nouveau à une position aléatoire
         // pour cela on compare le nombre théorique d'enemy avec le nombre actuel
-        while (GameObject.FindGameObjectsWithTag("EnemySpawnPoint").Length >
-               GameObject.FindGameObjectsWithTag("Enemy").Length)
+        while (_spawnCount < enemySpawnPoints.Length)
         {
-            int RandomNumber = Random.Range(0, EnemyPrefabs.Count);
+            int RandomNumber = Random.Range(0, enemySpawnPoints.Length);
             Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)],
-                GameObject.FindGameObjectsWithTag("EnemySpawnPoint")[RandomNumber].transform.position,
-                GameObject.FindGameObjectsWithTag("EnemySpawnPoint")[RandomNumber].transform.rotation);
+                enemySpawnPoints[RandomNumber].transform.position,
+                enemySpawnPoints[RandomNumber].transform.rotation);
+            _spawnCount++; // un nouvel ennemi est instancié
         }
     }
 }
