@@ -71,6 +71,7 @@ public class SimpleAI : MonoBehaviour {
             if (maxNumberOfNewDestinationBeforeDeath <= 0)
             {
                 Destroy(gameObject);
+                // REMI TODO: évènement pour EnemySpawner
             }
         }
 

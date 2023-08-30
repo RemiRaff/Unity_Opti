@@ -37,4 +37,9 @@ public class EnemySpawner : MonoBehaviour
             _spawnCount++; // un nouvel ennemi est instancié
         }
     }
+
+    public void OnEnnemyDestroy()
+    {
+        _spawnCount--;
+    }
 }
