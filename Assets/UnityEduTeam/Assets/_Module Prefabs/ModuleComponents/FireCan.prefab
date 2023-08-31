@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 7680382343519817271}
   m_Father: {fileID: 0}
-  m_RootOrder: 86
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7706166494182090971
 MeshFilter:
@@ -3994,7 +3994,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 1
+    enabled: 0
     ratio: 1
     light: {fileID: 108994250385835150, guid: 39389a514e4485848bd55f567b1d8cbf, type: 3}
     randomDistribution: 1
