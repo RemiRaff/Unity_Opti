@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class SimpleAI : MonoBehaviour {
     [Header("Agent Field of View Properties")]
@@ -25,9 +26,13 @@ public class SimpleAI : MonoBehaviour {
     private int maxNumberOfNewDestinationBeforeDeath;
     private enum State {Wandering, Chasing};
     private State currentState;
+
+    // var for optimization
     private GameObject _player = null;
     private Animator _animator = null;
     private NavMeshAgent _navMeshAgent = null;
+    private EnemySpawner _enemySpawner = null; 
+    public UnityEvent _ennemyDeathEvent = new UnityEvent();
 
     // Use this for initialization
     void Start () {
@@ -70,8 +75,11 @@ public class SimpleAI : MonoBehaviour {
             maxNumberOfNewDestinationBeforeDeath--;
             if (maxNumberOfNewDestinationBeforeDeath <= 0)
             {
+                _ennemyDeathEvent?.Invoke();
+                _ennemyDeathEvent.RemoveListener(_enemySpawner.OnEnnemyDestroy);
+                // _ennemyDeathEvent.RemoveAllListeners();
+                // destroy, next SetActive(false)
                 Destroy(gameObject);
-                // REMI TODO: évènement pour EnemySpawner
             }
         }
 
@@ -195,4 +203,9 @@ public class SimpleAI : MonoBehaviour {
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
 	}
+
+    public void AddSpawnerEnnemies(EnemySpawner es)
+    {
+        _enemySpawner = es;
+    }
 }

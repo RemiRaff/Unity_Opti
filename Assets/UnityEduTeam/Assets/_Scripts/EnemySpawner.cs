@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public List<GameObject> EnemyPrefabs;
+    [SerializeField] GameObject [] EnemyPrefabs;
 
     private GameObject[] enemySpawnPoints;
     private int _spawnCount;
@@ -17,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < _spawnCount; i++)
         {
-            Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)],
+            InstantiateEnnemy(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Length)],
                 enemySpawnPoints[i].transform.position,
                 enemySpawnPoints[i].transform.rotation);
         }
@@ -31,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         while (_spawnCount < enemySpawnPoints.Length)
         {
             int RandomNumber = Random.Range(0, enemySpawnPoints.Length);
-            Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)],
+            InstantiateEnnemy(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Length)],
                 enemySpawnPoints[RandomNumber].transform.position,
                 enemySpawnPoints[RandomNumber].transform.rotation);
             _spawnCount++; // un nouvel ennemi est instancié
@@ -41,5 +39,13 @@ public class EnemySpawner : MonoBehaviour
     public void OnEnnemyDestroy()
     {
         _spawnCount--;
+    }
+
+    private void InstantiateEnnemy(GameObject enemy, Vector3 enemyPosition, Quaternion enemyRotation)
+    {
+        GameObject go = Instantiate(enemy, enemyPosition, enemyRotation);
+        // init
+        go.GetComponent<SimpleAI>().AddSpawnerEnnemies(this);
+        go.GetComponent<SimpleAI>()._ennemyDeathEvent?.AddListener(OnEnnemyDestroy);
     }
 }
