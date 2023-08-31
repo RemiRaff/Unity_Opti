@@ -7,6 +7,7 @@ public class MoveToClickPoint : MonoBehaviour
     private NavMeshAgent _playerNavMeshAgent; // à la place GetComponent<NavMeshAgent>()
     [SerializeField]
     private Animator _playerAnimator; // à la place GetComponentInChildren<Animator>()
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -50,7 +51,6 @@ public class MoveToClickPoint : MonoBehaviour
             _playerAnimator.SetBool("running", false);
             // Debug.Log("start running");
         }
-
     }
 }
 
