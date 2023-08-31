@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8393911878263510400}
   - component: {fileID: 8384585951444312790}
   - component: {fileID: 8421862473180771858}
+  - component: {fileID: 5400501584257784163}
   m_Layer: 0
   m_Name: Chair_Red
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8393911878263510400
 MeshFilter:
@@ -101,7 +102,23 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.5000184, y: 0.53830713, z: 0.5556995}
   m_Center: {x: 2.1228127, y: -3.6943548, z: 0.3407122}
+--- !u!208 &5400501584257784163
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362506616588957056}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.26900002, z: 0.27800003}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 2.1230001, y: -3.6940002, z: 0.34100002}
+  m_TimeToStationary: 0.5
